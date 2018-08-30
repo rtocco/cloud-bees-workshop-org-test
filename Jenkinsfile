@@ -34,10 +34,27 @@ pipeline {
         }
       }
     }
+    stage('Checkpoint') {
+      steps {
+        checkpoint 'Checkpoint'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+      }
+    }
   }
   environment {
-    MY_NAME = 'Ryan'
+    MY_NAME = 'Mary'
     TEST_USER = credentials('test-user')
+  }
+  post {
+    aborted {
+      echo 'Why didn\'t you push my button?'
+
+    }
+
   }
   parameters {
     string(name: 'Name', defaultValue: 'whoever you are', description: 'Who should I say hi to?')
